@@ -62,7 +62,5 @@ public class ClientWriterHandler implements Runnable{
 				e.printStackTrace();
 			}
 		}
-		
 	}
-
 }

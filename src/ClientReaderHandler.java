@@ -25,6 +25,7 @@ public class ClientReaderHandler implements Runnable{
 			while((this.msgFromServer = this.bufferedReader.readLine()) != null) {
 				if(this.msgFromServer.contains("%D%")) System.err.println(this.msgFromServer.split("%")[2]);
 				else if(this.msgFromServer.contains("%CONN%")) System.err.println(this.msgFromServer.split("%")[2]);
+				else if(this.msgFromServer.contains("%LIST%")) System.err.println(this.msgFromServer.split("%")[2]);
 				else System.out.println(this.msgFromServer);
 			}
 		}
@@ -42,7 +43,5 @@ public class ClientReaderHandler implements Runnable{
 			
 		}
 	}
-		
-		
 
 }

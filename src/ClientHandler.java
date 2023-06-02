@@ -24,6 +24,16 @@ public class ClientHandler implements Runnable{
 		try {
 			this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
+			
+			if(!clients.isEmpty()) {
+				String names = "";
+				for(ClientHandler client : clients) {
+					if(client.getId() == clients.size()-1) names += client.getName();
+					else names += client.getName()+", ";
+				}
+				this.bufferedWriter.write("%LIST%" + names + " already connected!");
+			}
+			
 			ClientHandler.clients.add(this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -118,6 +128,10 @@ public class ClientHandler implements Runnable{
 
 	public Socket getSocket() {
 		return socket;
+	}
+
+	public String getName() {
+		return name;
 	}
 
 }
