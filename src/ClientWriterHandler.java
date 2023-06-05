@@ -10,10 +10,9 @@ public class ClientWriterHandler implements Runnable{
 
 	private BufferedWriter bufferedWriter;
 	private Scanner input;
-	private final Socket socket;
+	
 	
 	public ClientWriterHandler(Socket socket) {
-		this.socket = socket;
 		this.input = new Scanner(System.in);
 		try {
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -54,10 +53,6 @@ public class ClientWriterHandler implements Runnable{
 				if(this.input != null) {
 					this.input.close();
 				}
-				if(this.socket != null) {
-					this.socket.close();
-				}
-				System.err.println("Disconnected!");
 			}catch(Exception e) {
 				e.printStackTrace();
 			}

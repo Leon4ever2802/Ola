@@ -24,22 +24,26 @@ public class ClientHandler implements Runnable{
 		try {
 			this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
-			
-			if(!clients.isEmpty()) {
-				String names = "";
-				for(ClientHandler client : clients) {
-					if(client.getId() == clients.size()-1) names += client.getName();
-					else names += client.getName()+", ";
-				}
-				this.bufferedWriter.write("%LIST%" + names + " already connected!");
-			}
-			
 			ClientHandler.clients.add(this);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+	}
+	
+	private String checkUsers() {
+		String names = "";
+		if(this.id != 0) {
+			for(ClientHandler ch : clients) {
+				if(ch == this) continue;
+				else if(ch.getId() == clients.size()-2) names += ch.getName();
+				else names += ch.getName() + ", ";
+			}
+		}
+		else names = "Noone";
+		names += " already connected!";
+		return names;
 	}
 	
 	@Override
@@ -58,7 +62,7 @@ public class ClientHandler implements Runnable{
 						
 						for (ClientHandler ch : ClientHandler.clients) {
 							if(ch == this) {
-								continue;
+								ch.writeToClient("%CHECK%" + checkUsers());
 							}
 							else {
 								ch.writeToClient("%CONN%" + this.name + " connected!");
