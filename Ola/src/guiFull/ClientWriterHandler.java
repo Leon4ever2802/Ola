@@ -1,4 +1,4 @@
-package othersInNetwork;
+package guiFull;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -6,11 +6,10 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class ClientWriterHandler implements Runnable{
+public class ClientWriterHandler{
 
 	private BufferedWriter bufferedWriter;
 	private Scanner input;
-	
 	
 	public ClientWriterHandler(Socket socket) {
 		this.input = new Scanner(System.in);
@@ -26,36 +25,28 @@ public class ClientWriterHandler implements Runnable{
 		}
 	}
 	
-	@Override
-	public void run() {
+	public void sendMessage(String msg) {
 		try {
-			while(true) {
-				
-				String msgToSend = this.input.nextLine();
-				
-				this.bufferedWriter.write(msgToSend);
-				this.bufferedWriter.newLine();
-				this.bufferedWriter.flush();
-				
-				if(msgToSend.equalsIgnoreCase("%0%")) {
-					break;
+			
+			this.bufferedWriter.write(msg);
+			this.bufferedWriter.newLine();
+			this.bufferedWriter.flush();
+			
+			if(msg.equalsIgnoreCase("%0%")) {
+				try {	
+					if(this.bufferedWriter != null) {
+						this.bufferedWriter.close();
+					}
+					if(this.input != null) {
+						this.input.close();
+					}
+				}catch(Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-		}
-		finally {
-			try {	
-				if(this.bufferedWriter != null) {
-					this.bufferedWriter.close();
-				}
-				if(this.input != null) {
-					this.input.close();
-				}
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

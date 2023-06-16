@@ -1,4 +1,4 @@
-package othersInNetwork;
+package guiLess;
 
 import java.io.IOException;
 import java.net.ServerSocket;

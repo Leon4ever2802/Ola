@@ -1,4 +1,4 @@
-package othersInNetworkWithGUI;
+package guiFull;
 
 import java.awt.Color;
 import java.awt.Dimension;
