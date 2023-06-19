@@ -10,7 +10,7 @@ public class Client {
 		Socket socket = null;
 		
 		try {
-			socket = new Socket("10.118.10.14", 65432);
+			socket = new Socket("127.0.0.1", 65432);
 			
 			ClientWriterHandler cwh = new ClientWriterHandler(socket);
 			ClientFrame frame = new ClientFrame(cwh);

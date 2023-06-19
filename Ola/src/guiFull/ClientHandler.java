@@ -16,11 +16,13 @@ public class ClientHandler implements Runnable{
 	private final Socket socket;
 	private BufferedReader bufferedReader;
 	private BufferedWriter bufferedWriter;
+	private ServerFrame frame;
 	private static ArrayList<ClientHandler> clients = new ArrayList<>();
 	
-	public ClientHandler(Socket socket) {
+	public ClientHandler(Socket socket, ServerFrame frame) {
 		this.id = cnt++;
 		this.socket = socket;
+		this.frame = frame;
 		try {
 			this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
@@ -54,7 +56,7 @@ public class ClientHandler implements Runnable{
 			
 			while((msgFromClient = this.bufferedReader.readLine()) != null) {
 				
-				System.out.println("Client" + this.id + ": " + msgFromClient);
+				frame.messageRecieved("Client" + this.id + ": " + msgFromClient);
 				
 				synchronized (this.getClass()){
 					if(msgFromClient.contains("%NAME%")) {
@@ -86,7 +88,7 @@ public class ClientHandler implements Runnable{
 						}
 						ClientHandler.clients.remove(this);
 						ClientHandler.cnt--;
-						System.err.println("Client" + this.id + " disconnected!");
+						frame.messageRecieved("Client" + this.id + " disconnected!");
 						break;
 					}
 					else {
@@ -109,7 +111,7 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
-	private void writeToClient(String msg) {
+	public void writeToClient(String msg) {
 		
 		try {
 			this.bufferedWriter.write(msg);
@@ -136,6 +138,10 @@ public class ClientHandler implements Runnable{
 
 	public String getName() {
 		return name;
+	}
+	
+	public static ArrayList<ClientHandler> getClients() {
+		return clients;
 	}
 
 }

@@ -57,7 +57,7 @@ public class ClientFrame extends JFrame implements ActionListener {
 		this.anzeige = new JScrollPane(filler);
 		this.anzeige.setOpaque(true);
 		this.anzeige.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		this.anzeige.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.anzeige.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		this.anzeige.setBounds(20, 10, 320, 450);
 		
 		this.userInput = new JTextField();
@@ -94,8 +94,11 @@ public class ClientFrame extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String msg = this.userInput.getText();
-		this.texte.setText(this.texte.getText() + "\n" + msg);
 		this.userInput.setText("");
+		
+		if(msg.replaceAll("\\s+", "").equals("")) return;
+		
+		this.texte.setText(this.texte.getText() + "\n" + msg);
 		this.cwh.sendMessage(msg);
 	}
 	
@@ -105,6 +108,17 @@ public class ClientFrame extends JFrame implements ActionListener {
 	
 	public void onExit() {
 		this.cwh.sendMessage("%0%");
+		this.dispose();
+	}
+	
+	public void onServerClose() {
+		this.texte.setText(this.texte.getText() + "\nServer closed, connection lost!\n...");
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		this.dispose();
 	}
 

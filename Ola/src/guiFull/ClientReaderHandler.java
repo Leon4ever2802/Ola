@@ -33,11 +33,15 @@ public class ClientReaderHandler implements Runnable{
 						this.msgFromServer.contains("%LIST%")) {
 					this.frame.messageRecieved(msgFromServer.split("%")[2]);
 				}
+				else if(this.msgFromServer.equals("%CLOSED%")) {
+					frame.onServerClose();
+					break;
+				}
 				else this.frame.messageRecieved(this.msgFromServer);
 			}
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			
 		}finally {
 			
 			try {
@@ -47,7 +51,6 @@ public class ClientReaderHandler implements Runnable{
 				if(this.socket != null) {
 					this.socket.close();
 				}
-				System.err.println("Disconnected!");
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
