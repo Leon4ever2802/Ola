@@ -7,6 +7,11 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
@@ -73,6 +78,9 @@ public class ClientFrame extends JFrame implements ActionListener {
 		this.send.setBackground(Color.LIGHT_GRAY);
 		this.send.setBounds(277, 475, 63, 29);
 		this.send.addActionListener(this);
+		this.send.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW)
+			.put(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0), "Enter");
+		this.send.getActionMap().put("Enter", new EnterListener(this));
 		
 		this.layeredPane = new JLayeredPane();
 		this.layeredPane.setOpaque(true);
@@ -93,6 +101,16 @@ public class ClientFrame extends JFrame implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		String msg = this.userInput.getText();
+		this.userInput.setText("");
+		
+		if(msg.replaceAll("\\s+", "").equals("")) return;
+		
+		this.texte.setText(this.texte.getText() + "\n" + msg);
+		this.cwh.sendMessage(msg);
+	}
+	
+	public void enterPressed() {
 		String msg = this.userInput.getText();
 		this.userInput.setText("");
 		
