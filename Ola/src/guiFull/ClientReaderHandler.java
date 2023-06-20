@@ -18,7 +18,6 @@ public class ClientReaderHandler implements Runnable{
 		try {
 			this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
