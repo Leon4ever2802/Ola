@@ -32,16 +32,16 @@ public class ServerFrame extends JFrame{
 		this.filler.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
-        gbc.fill = GridBagConstraints.BOTH;
-        JPanel filler2 = new JPanel();
-        filler2.setBackground(null);
-        this.filler.add(filler2, gbc);
-        gbc.gridy = 1;
-        gbc.weighty = 0;
-        this.filler.add(this.texte, gbc);
+        	gbc.gridy = 0;
+	        gbc.weightx = 1;
+	        gbc.weighty = 1;
+	        gbc.fill = GridBagConstraints.BOTH;
+	        JPanel filler2 = new JPanel();
+	        filler2.setBackground(null);
+	        this.filler.add(filler2, gbc);
+	        gbc.gridy = 1;
+	        gbc.weighty = 0;
+	        this.filler.add(this.texte, gbc);
         
 		this.anzeige = new JScrollPane(filler);
 		this.anzeige.setOpaque(true);
