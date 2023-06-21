@@ -6,10 +6,8 @@ import java.net.Socket;
 
 public class Server {
 
-	@SuppressWarnings("resource")
 	public static void main(String[] args) {
 		
-		ServerFrame frame = new ServerFrame();
 		Socket socket = null;
 		ServerSocket serverSocket = null;
 		
@@ -19,6 +17,8 @@ public class Server {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		ServerFrame frame = new ServerFrame(serverSocket.getLocalSocketAddress().toString());
 		
 		acceptClient(serverSocket, frame);
 		

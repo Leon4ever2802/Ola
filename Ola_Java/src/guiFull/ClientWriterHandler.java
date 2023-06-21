@@ -16,7 +16,12 @@ public class ClientWriterHandler{
 		try {
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			System.out.print("Enter username:");
-			this.bufferedWriter.write("%NAME%" + this.input.nextLine());
+			String name = this.input.nextLine();
+			while(name.equals("") || name.length() > 15) {
+				System.out.print("Username invalid or too long!\nEnter username:");
+				name = this.input.nextLine();
+			}
+			this.bufferedWriter.write("%NAME%" + name);
 			this.bufferedWriter.newLine();
 			this.bufferedWriter.flush();
 		} catch (IOException e) {

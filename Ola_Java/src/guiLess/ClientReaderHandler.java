@@ -27,15 +27,14 @@ public class ClientReaderHandler implements Runnable{
 			while((this.msgFromServer = this.bufferedReader.readLine()) != null) {
 				if(this.msgFromServer.contains("%D%") || 
 						this.msgFromServer.contains("%CHECK%") || 
-						this.msgFromServer.contains("%CONN%") || 
-						this.msgFromServer.contains("%LIST%")) {
+						this.msgFromServer.contains("%CONN%")) {
 					System.err.println(this.msgFromServer.split("%")[2]);
 				}
 				else System.out.println(this.msgFromServer);
 			}
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			
 		}finally {
 			
 			try {

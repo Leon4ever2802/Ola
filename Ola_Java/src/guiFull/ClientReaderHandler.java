@@ -28,8 +28,7 @@ public class ClientReaderHandler implements Runnable{
 			while((this.msgFromServer = this.bufferedReader.readLine()) != null) {
 				if(this.msgFromServer.contains("%D%") || 
 						this.msgFromServer.contains("%CHECK%") || 
-						this.msgFromServer.contains("%CONN%") || 
-						this.msgFromServer.contains("%LIST%")) {
+						this.msgFromServer.contains("%CONN%")) {
 					this.frame.messageRecieved(msgFromServer.split("%")[2]);
 				}
 				else if(this.msgFromServer.equals("%CLOSED%")) {

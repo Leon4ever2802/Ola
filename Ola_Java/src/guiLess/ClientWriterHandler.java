@@ -11,17 +11,21 @@ public class ClientWriterHandler implements Runnable{
 	private BufferedWriter bufferedWriter;
 	private Scanner input;
 	
-	
 	public ClientWriterHandler(Socket socket) {
 		this.input = new Scanner(System.in);
 		try {
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			System.out.print("Enter username:");
-			this.bufferedWriter.write("%NAME%" + this.input.nextLine());
+			String name = this.input.nextLine();
+			while(name.equals("") || name.length() > 15) {
+				System.out.print("Username invalid or too long!\nEnter username:");
+				name = this.input.nextLine();
+			}
+			System.out.println();
+			this.bufferedWriter.write("%NAME%" + name);
 			this.bufferedWriter.newLine();
 			this.bufferedWriter.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

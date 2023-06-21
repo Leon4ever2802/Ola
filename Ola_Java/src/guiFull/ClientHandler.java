@@ -26,9 +26,7 @@ public class ClientHandler implements Runnable{
 		try {
 			this.bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 			this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(this.socket.getOutputStream()));
-			ClientHandler.clients.add(this);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -36,14 +34,14 @@ public class ClientHandler implements Runnable{
 	
 	private String checkUsers() {
 		String names = "";
-		if(this.id != 0) {
+		if(clients.size() > 1) {
 			for(ClientHandler ch : clients) {
 				if(ch == this) continue;
-				else if(ch.getId() == clients.size()-2) names += ch.getName();
+				else if(clients.indexOf(ch) == clients.size()-2) names += ch.getName();
 				else names += ch.getName() + ", ";
 			}
 		}
-		else names = "Noone";
+		else names = "Noone else";
 		names += " already connected!";
 		return names;
 	}
@@ -52,42 +50,40 @@ public class ClientHandler implements Runnable{
 	public void run() {
 		try {
 
-			String msgFromClient;
+			String msgFromClient = this.bufferedReader.readLine();
+			frame.messageRecieved("Client" + this.id + ": " + msgFromClient);
+			this.name = msgFromClient.split("%")[2];
+			ClientHandler.clients.add(this);
+			
+			synchronized (this.getClass()){
+				for (ClientHandler ch : ClientHandler.clients) {
+					if(ch == this) {
+						ch.writeToClient("%CONN%Server: Connected");
+						ch.writeToClient("%CHECK%Server: " + checkUsers());
+					}
+					else {
+						ch.writeToClient("%CONN%Server: " + this.name + " connected!");
+					}
+				}
+			}
 			
 			while((msgFromClient = this.bufferedReader.readLine()) != null) {
 				
 				frame.messageRecieved("Client" + this.id + ": " + msgFromClient);
 				
 				synchronized (this.getClass()){
-					if(msgFromClient.contains("%NAME%")) {
-						this.name = msgFromClient.split("%")[2];
-						
-						for (ClientHandler ch : ClientHandler.clients) {
-							if(ch == this) {
-								ch.writeToClient("%CHECK%" + checkUsers());
-							}
-							else {
-								ch.writeToClient("%CONN%" + this.name + " connected!");
-							}
-						}
-					}
 					
-					else if (msgFromClient.equalsIgnoreCase("%0%")) {
+					if (msgFromClient.equalsIgnoreCase("%0%")) {
 						
 						for (ClientHandler ch : ClientHandler.clients) {
 							if(ch == this) {
 								continue;
 							}
-							else if(ch.getId() > this.id) {
-								ch.writeToClient("%D%" + this.name + " disconnected!");
-								ch.setId(ch.getId()-1);
-							}
 							else {
-								ch.writeToClient("%D%" + this.name + " disconnected!");
+								ch.writeToClient("%D%Server: " + this.name + " disconnected!");
 							}
 						}
 						ClientHandler.clients.remove(this);
-						ClientHandler.cnt--;
 						frame.messageRecieved("Client" + this.id + " disconnected!");
 						break;
 					}
@@ -118,7 +114,6 @@ public class ClientHandler implements Runnable{
 			this.bufferedWriter.newLine();
 			this.bufferedWriter.flush();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

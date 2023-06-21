@@ -16,9 +16,10 @@ public class Server {
 			serverSocket = new ServerSocket(65432);
 			serverSocket.setReuseAddress(true);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		System.out.println("SERVER STARTED SUCCESSFULLY AT " + serverSocket.getLocalSocketAddress() + "\n");
 		
 		while(true) {
 			
