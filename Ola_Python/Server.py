@@ -11,11 +11,19 @@ class Server:
         self.host = host
         self.port = port
 
+    def check_users(self):
+        names = ""
+
     def thread_run(self, conn, addr):
         while True:
             data = conn.recv(1024)
-            if data.decode() == "":
+            if data.decode() == "%0%":
                 break
+            elif "%NAME%" in data:
+                self.clients.append(conn, data.split("%")[2])
+                for client, name in self.clients:
+                    if client == conn:
+                        print("?")
             for client in self.clients:
                 if client == conn:
                     continue
@@ -30,8 +38,8 @@ class Server:
             s.listen()
             while True:
                 conn, addr = s.accept()
+                self.clients.append([conn, ""])
                 print(f"Connected by {addr}")
-                self.clients.append(conn)
                 threading.Thread(target=self.thread_run, args=(conn, addr)).start()
 
 

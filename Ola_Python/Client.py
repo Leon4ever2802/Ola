@@ -12,8 +12,11 @@ class Client:
 
     def listener(self):
         while True:
-            data = self.socket.recv(1024).decode().replace("\n","")
-            print("Server: " + data)
+            data = self.socket.recv(1024).decode().replace("\n", "")
+            if ("%D%" or "%CHECK%" or "%CONN%" or "%LIST%") in data:
+                print(data.split("%")[2])
+            else:
+                print("Server: " + data)
 
     def writer(self):
         while True:
@@ -27,6 +30,12 @@ class Client:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((self.host, self.port))
         print("Connected!")
+        name = input("Enter username:")
+        while name == "":
+            print("A username is needed!")
+            name = input("Enter username:")
+        name = "%NAME%" + name
+        self.socket.sendall(bytes(name + "\n", 'utf-8'))
         threading.Thread(target=self.writer, args=()).start()
         threading.Thread(target=self.listener, args=()).start()
 
