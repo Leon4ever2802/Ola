@@ -22,7 +22,9 @@ import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 
 //https://stackoverflow.com/questions/22623515/writing-at-the-bottom-of-jtextarea
-
+/**
+ * @author Leon Reusch
+ */
 public class ClientFrame extends JFrame implements ActionListener {
 
 	private JLayeredPane layeredPane;

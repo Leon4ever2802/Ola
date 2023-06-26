@@ -12,6 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 
+/**
+ * @author Leon Reusch
+ */
 public class ServerFrame extends JFrame{
 
 	private JLayeredPane layeredPane;

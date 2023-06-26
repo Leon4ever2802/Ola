@@ -3,6 +3,9 @@ package guiFull;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * @author Leon Reusch
+ */
 public class WindowListenerClient extends WindowAdapter{
 
 	private ClientFrame frame;

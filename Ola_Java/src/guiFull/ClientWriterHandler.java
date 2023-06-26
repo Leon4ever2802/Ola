@@ -6,6 +6,9 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+/**
+ * @author Leon Reusch
+ */
 public class ClientWriterHandler{
 
 	private BufferedWriter bufferedWriter;

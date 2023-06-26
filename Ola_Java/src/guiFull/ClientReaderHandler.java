@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
+/**
+ * @author Leon Reusch
+ */
 public class ClientReaderHandler implements Runnable{
 
 	private String msgFromServer;

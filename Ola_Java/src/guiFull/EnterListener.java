@@ -4,6 +4,9 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.AbstractAction;
 
+/**
+ * @author Leon Reusch
+ */
 public class EnterListener extends AbstractAction{
 	
 	private ClientFrame frame;

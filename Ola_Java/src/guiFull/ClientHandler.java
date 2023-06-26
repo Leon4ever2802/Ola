@@ -8,6 +8,9 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
+/**
+ * @author Leon Reusch
+ */
 public class ClientHandler implements Runnable{
 
 	private static int cnt = 0;
