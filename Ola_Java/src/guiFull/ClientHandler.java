@@ -59,6 +59,7 @@ public class ClientHandler implements Runnable{
 				for (ClientHandler ch : ClientHandler.clients) {
 					if(ch == this) {
 						ch.writeToClient("%CONN%Server: Connected");
+						ch.writeToClient("%NAME%" + this.name);
 						ch.writeToClient("%CHECK%Server: " + checkUsers());
 					}
 					else {

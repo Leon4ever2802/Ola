@@ -89,7 +89,7 @@ public class ClientFrame extends JFrame implements ActionListener {
 		this.layeredPane.add(send);
 		this.layeredPane.add(userInput);
 		
-		this.setTitle("Ola");
+		this.setTitle("Ola - ");
 		this.add(layeredPane);
 		this.addWindowListener(new WindowListenerClient(this));
 		this.setSize(new Dimension(375, 560));
@@ -114,10 +114,14 @@ public class ClientFrame extends JFrame implements ActionListener {
 		String msg = this.userInput.getText();
 		this.userInput.setText("");
 		
-		if(msg.replaceAll("\\s+", "").equals("")) return;
+		if(msg.equals("%0%")) this.onExit();
+		else {
+			if(msg.replaceAll("\\s+", "").equals("")) return;
+			
+			this.texte.setText(this.texte.getText() + "\n" + msg);
+			this.cwh.sendMessage(msg);
+		}
 		
-		this.texte.setText(this.texte.getText() + "\n" + msg);
-		this.cwh.sendMessage(msg);
 	}
 	
 	public void messageRecieved(String msg) {
@@ -138,6 +142,10 @@ public class ClientFrame extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 		this.dispose();
+	}
+	
+	public void addUsername(String name) {
+		this.setTitle("Ola - " + name);
 	}
 
 }

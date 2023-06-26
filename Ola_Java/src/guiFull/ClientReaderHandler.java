@@ -35,6 +35,9 @@ public class ClientReaderHandler implements Runnable{
 					frame.onServerClose();
 					break;
 				}
+				else if(this.msgFromServer.contains("%NAME%")) {
+					frame.addUsername(this.msgFromServer.split("%")[2]);
+				}
 				else this.frame.messageRecieved(this.msgFromServer);
 			}
 		}
