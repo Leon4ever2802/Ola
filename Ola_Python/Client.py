@@ -12,11 +12,12 @@ class Client:
 
     def listener(self):
         while True:
-            data = self.socket.recv(1024).decode().replace("\n", "")
-            if ("%D%" or "%CHECK%" or "%CONN%" or "%LIST%") in data:
-                print(data.split("%")[2])
-            else:
-                print("Server: " + data)
+            data_lst = self.socket.recv(1024).decode().split("\n")
+            for data in data_lst:
+                if "%D%" in data or "%CHECK%" in data or "%CONN%" in data or "%LIST%" in data:
+                    print(data.split("%")[2].replace("\n",""))
+                else:
+                    print(data.replace("\n",""))
 
     def writer(self):
         while True:
@@ -37,7 +38,9 @@ class Client:
         name = "%NAME%" + name
         self.socket.sendall(bytes(name + "\n", 'utf-8'))
         threading.Thread(target=self.writer, args=()).start()
-        threading.Thread(target=self.listener, args=()).start()
+        listener = threading.Thread(target=self.listener, args=())
+        listener.daemon = True
+        listener.start()
 
 
 HOST = "127.0.0.1"  # The server's hostname or IP address
