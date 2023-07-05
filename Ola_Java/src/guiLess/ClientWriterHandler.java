@@ -21,7 +21,6 @@ public class ClientWriterHandler implements Runnable{
 				System.out.print("Username invalid or too long!\nEnter username:");
 				name = this.input.nextLine();
 			}
-			System.out.println();
 			this.bufferedWriter.write("%NAME%" + name);
 			this.bufferedWriter.newLine();
 			this.bufferedWriter.flush();

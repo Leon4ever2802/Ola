@@ -13,6 +13,7 @@ class Client:
     def listener(self):
         while True:
             data_lst = self.socket.recv(1024).decode().split("\n")
+            del data_lst[len(data_lst)-1]
             for data in data_lst:
                 if "%D%" in data or "%CHECK%" in data or "%CONN%" in data or "%LIST%" in data:
                     print(data.split("%")[2].replace("\n",""))

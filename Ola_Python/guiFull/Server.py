@@ -27,8 +27,8 @@ class Server:
         return names
 
     def thread_run(self, conn, addr):
-        data = conn.recv(1024).decode()
-        print("Client: " + data.replace("\n", ""))
+        data = conn.recv(1024).decode().replace("\n", "").replace("\r","")
+        print("Client: " + data)
         self.clients.append((conn, data.split("%")[2]))
         username = data.split("%")[2]
         for client, name in self.clients:
@@ -36,12 +36,12 @@ class Server:
                 client.sendall(bytes("%CONN%Server: Connected!" + "\n", 'utf-8'))
                 client.sendall(bytes("%CHECK%Server: " + self.check_users(conn) + "\n", 'utf-8'))
             else:
-                client.sendall(bytes("%CONN%%Server: " + username + " connected!\n", 'utf-8'))
+                client.sendall(bytes("%CONN%Server: " + username + " connected!\n", 'utf-8'))
 
         while True:
-            data = conn.recv(1024).decode()
-            print("Client: " + data.replace("\n", ""))
-            if data.replace("\n","").replace("\r","") == "%0%":
+            data = conn.recv(1024).decode().replace("\n", "").replace("\r","")
+            print("Client: " + data)
+            if data == "%0%":
                 index_left = None
                 for i, content in enumerate(self.clients):
                     if content[0] == conn:
@@ -59,7 +59,7 @@ class Server:
                     if client == conn:
                         continue
                     else:
-                        client.sendall(bytes(username + data, 'utf-8'))
+                        client.sendall(bytes(username + ": " + data + "\n", 'utf-8'))
         print(f"Connection got closed with {addr}")
 
     def start(self):

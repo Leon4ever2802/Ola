@@ -57,11 +57,11 @@ public class ClientHandler implements Runnable{
 				
 				for (ClientHandler ch : ClientHandler.clients) {
 					if(ch == this) {
-						ch.writeToClient("%CONN%Connected");
-						ch.writeToClient("%CHECK%" + checkUsers());
+						ch.writeToClient("%CONN%Server: Connected");
+						ch.writeToClient("%CHECK%Server: " + checkUsers());
 					}
 					else {
-						ch.writeToClient("%CONN%" + this.name + " connected!");
+						ch.writeToClient("%CONN%Server: " + this.name + " connected!");
 					}
 				}
 			}
@@ -79,7 +79,7 @@ public class ClientHandler implements Runnable{
 								continue;
 							}
 							else {
-								ch.writeToClient("%D%" + this.name + " disconnected!");
+								ch.writeToClient("%D%Server: " + this.name + " disconnected!");
 							}
 						}
 						ClientHandler.clients.remove(this);
