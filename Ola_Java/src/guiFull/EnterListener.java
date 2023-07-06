@@ -11,10 +11,16 @@ public class EnterListener extends AbstractAction{
 	
 	private ClientFrame frame;
 
+	/**
+	 * @param frame
+	 */
 	public EnterListener(ClientFrame frame) {
 		this.frame = frame;
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.frame.enterPressed();

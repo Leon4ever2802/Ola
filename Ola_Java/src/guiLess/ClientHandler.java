@@ -18,6 +18,9 @@ public class ClientHandler implements Runnable{
 	private BufferedWriter bufferedWriter;
 	private static ArrayList<ClientHandler> clients = new ArrayList<>();
 	
+	/**
+	 * @param socket
+	 */
 	public ClientHandler(Socket socket) {
 		this.id = cnt++;
 		this.socket = socket;
@@ -30,6 +33,9 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
+	/**
+	 * @return
+	 */
 	private String checkUsers() {
 		String names = "";
 		if(clients.size() > 1) {
@@ -44,6 +50,9 @@ public class ClientHandler implements Runnable{
 		return names;
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public void run() {
 		try {
@@ -64,6 +73,7 @@ public class ClientHandler implements Runnable{
 						ch.writeToClient("%CONN%Server: " + this.name + " connected!");
 					}
 				}
+				
 			}
 			
 			while((msgFromClient = this.bufferedReader.readLine()) != null) {
@@ -106,6 +116,9 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
+	/**
+	 * @param msg
+	 */
 	private void writeToClient(String msg) {
 		
 		try {
@@ -118,18 +131,9 @@ public class ClientHandler implements Runnable{
 		
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Socket getSocket() {
-		return socket;
-	}
-
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}

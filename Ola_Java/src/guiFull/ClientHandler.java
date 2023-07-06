@@ -22,6 +22,10 @@ public class ClientHandler implements Runnable{
 	private ServerFrame frame;
 	private static ArrayList<ClientHandler> clients = new ArrayList<>();
 	
+	/**
+	 * @param socket
+	 * @param frame
+	 */
 	public ClientHandler(Socket socket, ServerFrame frame) {
 		this.id = cnt++;
 		this.socket = socket;
@@ -35,6 +39,9 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
+	/**
+	 * @return
+	 */
 	private String checkUsers() {
 		String names = "";
 		if(clients.size() > 1) {
@@ -49,6 +56,9 @@ public class ClientHandler implements Runnable{
 		return names;
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public void run() {
 		try {
@@ -111,6 +121,9 @@ public class ClientHandler implements Runnable{
 		
 	}
 	
+	/**
+	 * @param msg
+	 */
 	public void writeToClient(String msg) {
 		
 		try {
@@ -123,22 +136,16 @@ public class ClientHandler implements Runnable{
 		
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public Socket getSocket() {
-		return socket;
-	}
-
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * @return
+	 */
 	public static ArrayList<ClientHandler> getClients() {
 		return clients;
 	}

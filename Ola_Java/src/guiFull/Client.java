@@ -25,6 +25,9 @@ public class Client {
 		crh.start();
 	}
 	
+	/**
+	 * @return
+	 */
 	private static Socket connect() {
 		try {
 			return new Socket("127.0.0.1", 65432);

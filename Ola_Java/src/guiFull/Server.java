@@ -27,6 +27,10 @@ public class Server {
 		
 	}
 	
+	/**
+	 * @param serverSocket
+	 * @param frame
+	 */
 	private static void acceptClient(ServerSocket serverSocket, ServerFrame frame) {
 		
 		Socket socket = null;
@@ -48,6 +52,9 @@ public class Server {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public static void endServer() {
 		System.exit(0);
 	}

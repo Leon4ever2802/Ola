@@ -14,6 +14,9 @@ public class ClientWriterHandler{
 	private BufferedWriter bufferedWriter;
 	private Scanner input;
 	
+	/**
+	 * @param socket
+	 */
 	public ClientWriterHandler(Socket socket) {
 		this.input = new Scanner(System.in);
 		try {
@@ -33,6 +36,9 @@ public class ClientWriterHandler{
 		}
 	}
 	
+	/**
+	 * @param msg
+	 */
 	public void sendMessage(String msg) {
 		try {
 			

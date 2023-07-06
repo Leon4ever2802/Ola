@@ -22,6 +22,9 @@ public class ServerFrame extends JFrame{
 	private JTextPane texte;
 	private JPanel filler;
 	
+	/**
+	 * @param inetAddresse
+	 */
 	public ServerFrame(String inetAddresse) {
 		this.texte = new JTextPane();
 		this.texte.setFont(new Font("Arial", Font.PLAIN, 12));
@@ -69,10 +72,16 @@ public class ServerFrame extends JFrame{
 		this.messageRecieved("SERVER STARTED SUCCESSFULLY AT " + inetAddresse + "\n");
 	}
 	
+	/**
+	 * @param msg
+	 */
 	public void messageRecieved(String msg) {
 		this.texte.setText(this.texte.getText() + "\n" + msg);
 	}
 	
+	/**
+	 * 
+	 */
 	public void onClose() {
 		Server.endServer();
 		this.dispose();

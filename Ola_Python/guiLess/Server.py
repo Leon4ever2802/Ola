@@ -1,17 +1,29 @@
+# Author: Leon Reusch
 
 import socket
 import threading
 
 
 class Server:
+    """
+    Author: Leon Reusch
+    """
 
     clients = []
 
     def __init__(self, host, port):
+        """
+        :param host:
+        :param port:
+        """
         self.host = host
         self.port = port
 
     def check_users(self, conn):
+        """
+        :param conn:
+        :return:
+        """
         names = ""
         if len(self.clients) > 1:
             for client, name in self.clients:
@@ -27,6 +39,11 @@ class Server:
         return names
 
     def thread_run(self, conn, addr):
+        """
+        :param conn:
+        :param addr:
+        :return:
+        """
         data = conn.recv(1024).decode().replace("\n", "").replace("\r","")
         print("Client: " + data)
         self.clients.append((conn, data.split("%")[2]))
@@ -63,6 +80,9 @@ class Server:
         print(f"Connection got closed with {addr}")
 
     def start(self):
+        """
+        :return:
+        """
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
             s.listen()

@@ -35,6 +35,9 @@ public class ClientFrame extends JFrame implements ActionListener {
 	private JPanel filler;
 	private ClientWriterHandler cwh;
 	
+	/**
+	 * @param cwh
+	 */
 	public ClientFrame(ClientWriterHandler cwh) {
 		this.cwh = cwh;
 		
@@ -50,16 +53,16 @@ public class ClientFrame extends JFrame implements ActionListener {
 		this.filler.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.gridx = 0;
-        	gbc.gridy = 0;
-        	gbc.weightx = 1;
-        	gbc.weighty = 1;
-        	gbc.fill = GridBagConstraints.BOTH;
-        	JPanel filler2 = new JPanel();
-        	filler2.setBackground(null);
-        	this.filler.add(filler2, gbc);
-        	gbc.gridy = 1;
-        	gbc.weighty = 0;
-        	this.filler.add(this.texte, gbc);
+        gbc.gridy = 0;
+        gbc.weightx = 1;
+        gbc.weighty = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+        JPanel filler2 = new JPanel();
+        filler2.setBackground(null);
+        this.filler.add(filler2, gbc);
+        gbc.gridy = 1;
+        gbc.weighty = 0;
+        this.filler.add(this.texte, gbc);
         
 		this.anzeige = new JScrollPane(filler);
 		this.anzeige.setOpaque(true);
@@ -101,6 +104,9 @@ public class ClientFrame extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		String msg = this.userInput.getText();
@@ -112,6 +118,9 @@ public class ClientFrame extends JFrame implements ActionListener {
 		this.cwh.sendMessage(msg);
 	}
 	
+	/**
+	 * 
+	 */
 	public void enterPressed() {
 		String msg = this.userInput.getText();
 		this.userInput.setText("");
@@ -126,26 +135,37 @@ public class ClientFrame extends JFrame implements ActionListener {
 		
 	}
 	
+	/**
+	 * @param msg
+	 */
 	public void messageRecieved(String msg) {
 		this.texte.setText(this.texte.getText() + "\n" + msg);
 	}
 	
+	/**
+	 * 
+	 */
 	public void onExit() {
 		this.cwh.sendMessage("%0%");
 		this.dispose();
 	}
 	
+	/**
+	 * 
+	 */
 	public void onServerClose() {
 		this.texte.setText(this.texte.getText() + "\nServer closed, connection lost!\n...");
 		try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		this.dispose();
 	}
 	
+	/**
+	 * @param name
+	 */
 	public void addUsername(String name) {
 		this.setTitle("Ola - " + name);
 	}

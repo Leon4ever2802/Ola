@@ -1,16 +1,27 @@
+# Author: Leon Reusch
 
 import socket
 import threading
 
 
 class Client:
+    """
+    Author: Leon Reusch
+    """
 
     def __init__(self, host, port):
+        """
+        :param host:
+        :param port:
+        """
         self.host = host
         self.port = port
         self.socket = None
 
     def listener(self):
+        """
+        :return:
+        """
         while True:
             data_lst = self.socket.recv(1024).decode().split("\n")
             del data_lst[len(data_lst)-1]
@@ -21,6 +32,9 @@ class Client:
                     print(data.replace("\n",""))
 
     def writer(self):
+        """
+        :return:
+        """
         while True:
             to_send = input()
             self.socket.sendall(bytes(to_send + "\n", 'utf-8'))
@@ -29,6 +43,9 @@ class Client:
         print("Disconnected!")
 
     def start(self):
+        """
+        :return:
+        """
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.connect((self.host, self.port))
         print("Connected!")

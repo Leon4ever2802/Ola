@@ -11,6 +11,9 @@ public class ClientWriterHandler implements Runnable{
 	private BufferedWriter bufferedWriter;
 	private Scanner input;
 	
+	/**
+	 * @param socket
+	 */
 	public ClientWriterHandler(Socket socket) {
 		this.input = new Scanner(System.in);
 		try {
@@ -29,6 +32,9 @@ public class ClientWriterHandler implements Runnable{
 		}
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public void run() {
 		try {

@@ -10,11 +10,17 @@ public class WindowListenerClient extends WindowAdapter{
 
 	private ClientFrame frame;
 	
+	/**
+	 * @param frame
+	 */
 	public WindowListenerClient(ClientFrame frame) {
 		super();
 		this.frame = frame;
 	}
 	
+	/**
+	 *
+	 */
 	public void windowClosing(WindowEvent e) {
         this.frame.onExit();
     }

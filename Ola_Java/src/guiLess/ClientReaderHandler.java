@@ -11,6 +11,9 @@ public class ClientReaderHandler implements Runnable{
 	private BufferedReader bufferedReader;
 	private final Socket socket;
 	
+	/**
+	 * @param socket
+	 */
 	public ClientReaderHandler(Socket socket) {
 		this.socket = socket;
 		try {
@@ -21,6 +24,9 @@ public class ClientReaderHandler implements Runnable{
 		}
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public void run() {
 		try {

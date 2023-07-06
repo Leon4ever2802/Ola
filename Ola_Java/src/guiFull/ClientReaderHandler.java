@@ -15,6 +15,10 @@ public class ClientReaderHandler implements Runnable{
 	private ClientFrame frame;
 	private Socket socket;
 	
+	/**
+	 * @param socket
+	 * @param frame
+	 */
 	public ClientReaderHandler(Socket socket, ClientFrame frame) {
 		this.socket = socket;
 		this.frame = frame;
@@ -25,6 +29,9 @@ public class ClientReaderHandler implements Runnable{
 		}
 	}
 	
+	/**
+	 *
+	 */
 	@Override
 	public void run() {
 		try {
