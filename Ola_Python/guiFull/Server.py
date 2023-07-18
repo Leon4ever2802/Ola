@@ -103,7 +103,7 @@ PORT = 65432  # Port to listen on (non-privileged ports are > 1023)
 
 sg.theme("DarkAmber")
 server_window = sg.Window(title="Ola - Server", finalize=True,
-                          layout=[[sg.Multiline(size=(50, 30), key="Log", disabled=True)]])
+                          layout=[[sg.Multiline(size=(50, 30), key="Log", disabled=True, do_not_clear=True)]])
 
 server = Server(HOST, PORT, server_window)
 accepter = threading.Thread(target=server.start, args=())

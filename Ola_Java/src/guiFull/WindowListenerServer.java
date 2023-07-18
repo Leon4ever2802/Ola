@@ -2,7 +2,6 @@ package guiFull;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 /**
  * @author Leon Reusch

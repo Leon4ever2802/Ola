@@ -31,7 +31,6 @@ class Client:
             for data in data_lst:
                 if "%D%" in data or "%CHECK%" in data or "%CONN%" in data or "%LIST%" in data:
                     self.window["Chat"].print(data.split("%")[2].replace("\n", ""))
-                    print(data.split("%")[2].replace("\n", ""))
                 elif "%NAME%" in data:
                     self.window.TKroot.title("Ola - " + data.split("%")[2])
                 else:
@@ -43,9 +42,7 @@ class Client:
         :return:
         """
         self.socket.sendall(bytes(message + "\n", 'utf-8'))
-        self.window["Chat"].print(message)
         if message == "%0%":
-            self.window["Chat"].print("Disconnected!")
             return True
         else:
             return False
@@ -84,6 +81,7 @@ threading.Thread(target=client.start, args=()).start()
 while True:
     event, values = client_window.read()
     if event == sg.WINDOW_CLOSED:
+        client.write("%0%")
         break
     elif event in ("Enter", "Send"):
         if " ".join(values["ToSend"].split()) == "":
@@ -91,5 +89,5 @@ while True:
         else:
             if client.write(values["ToSend"]):
                 break
+            client_window["Chat"].print(values["ToSend"])
             client_window["ToSend"].update("")
-

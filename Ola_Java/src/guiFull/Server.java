@@ -11,7 +11,6 @@ public class Server {
 
 	public static void main(String[] args) {
 		
-		Socket socket = null;
 		ServerSocket serverSocket = null;
 		
 		try {

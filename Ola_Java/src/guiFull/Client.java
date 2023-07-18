@@ -9,12 +9,16 @@ import java.net.Socket;
  */
 public class Client {
 
+	/**
+	 * Client main to start the whole process of connection to a Server and chatting.
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		
 		Socket socket = null;
 		
 		while(socket == null) {
-			socket = connect();
+			socket = connect("127.0.0.1", 65432);
 		}
 		
 		ClientWriterHandler cwh = new ClientWriterHandler(socket);
@@ -26,11 +30,16 @@ public class Client {
 	}
 	
 	/**
-	 * @return
+	 * This method tries to connect to a Server at the given Host address and port.
+	 * @param host Host IP-Address of the Server to connect to
+	 * @param port Port number of the Server
+	 * @return Socket-Object
+	 * @exception ConnectException returns Null
+	 * @exception IOException printStackTrace + return Null
 	 */
-	private static Socket connect() {
+	private static Socket connect(String host, int port) {
 		try {
-			return new Socket("127.0.0.1", 65432);
+			return new Socket(host, port);
 		} 
 		catch(ConnectException e) {
 			return null;
